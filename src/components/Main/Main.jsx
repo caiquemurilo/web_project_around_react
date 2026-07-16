@@ -3,6 +3,8 @@ import avatar from '../../images/avatar.jpg'
 import Card from '../Main/components/Card/Card'
 import Popup from '../Main/components/Popup/Popup'
 import NewCard from '../Main/components/Popup/components/NewCard/NewCard'
+import EditAvatar from '../Main/components/Popup/components/EditAvatar/EditAvatar'
+import EditProfile from '../Main/components/Popup/components/EditProfile/EditProfile'
 
 const cards = [
   {
@@ -30,9 +32,9 @@ export default function Main() {
   const newCardPopup = { title: 'Novo local', children: <NewCard /> }
   const editAvatarPopup = {
     title: 'Alterar a foto do perfil',
-    children: <NewCard />
+    children: <EditAvatar />
   }
-  const editProfilePopup = { title: 'Editar Perfil', children: <NewCard /> }
+  const editProfilePopup = { title: 'Editar Perfil', children: <EditProfile /> }
 
   function handleOpenPopup(popup) {
     setPopup(popup)
