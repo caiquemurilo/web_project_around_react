@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import avatar from '../../images/avatar.jpg'
+import editIcon from '../../images/edit-icon.svg'
 import Card from '../Main/components/Card/Card'
 import Popup from '../Main/components/Popup/Popup'
 import NewCard from '../Main/components/Popup/components/NewCard/NewCard'
@@ -50,7 +51,7 @@ export default function Main() {
           <img className="profile__image" src={avatar} alt="Avatar" />
           <div className="profile__overlay">
             <img
-              src="./images/edit-icon.svg"
+              src={editIcon}
               alt="Edit Icon"
               className="profile__overlay-icon"
               onClick={() => {
@@ -83,7 +84,11 @@ export default function Main() {
       <section className="cards page__section">
         <ul className="cards__list">
           {cards.map(card => (
-            <Card key={card._id} card={card} />
+            <Card
+              key={card._id}
+              card={card}
+              handleOpenImagePopup={handleOpenPopup}
+            />
           ))}
         </ul>
       </section>
