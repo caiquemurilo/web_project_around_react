@@ -8,8 +8,8 @@ export default function NewCard() {
         placeholder="Título"
         required
         type="text"
-        minlength="2"
-        maxlength="30"
+        minLength="2"
+        maxLength="30"
       />
       <span className="place-name-input-error popup__input-error"></span>
       <input

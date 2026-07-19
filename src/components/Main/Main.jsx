@@ -29,7 +29,6 @@ const cards = [
 export default function Main() {
   const [popup, setPopup] = useState(null)
 
-  console.log(cards)
   const newCardPopup = { title: 'Novo local', children: <NewCard /> }
   const editAvatarPopup = {
     title: 'Alterar a foto do perfil',

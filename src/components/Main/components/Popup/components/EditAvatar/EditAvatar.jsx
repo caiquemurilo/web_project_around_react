@@ -8,8 +8,8 @@ export default function EditAvatar() {
         name="avatar"
         placeholder="Insira o link da imagem"
         type="url"
-        minlength="8"
-        maxlength="140"
+        minLength="8"
+        maxLength="140"
       />
       <span className="avatar-input-error popup__input-error"></span>
       <button className="button popup__button" type="submit">
