@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import avatar from '../../images/avatar.jpg'
 import editIcon from '../../images/edit-icon.svg'
 import Card from '../Main/components/Card/Card'
@@ -6,8 +6,10 @@ import Popup from '../Main/components/Popup/Popup'
 import NewCard from '../Main/components/Popup/components/NewCard/NewCard'
 import EditAvatar from '../Main/components/Popup/components/EditAvatar/EditAvatar'
 import EditProfile from '../Main/components/Popup/components/EditProfile/EditProfile'
+import {api} from '../../utils/api'
 
-const cards = [
+
+/* const cards = [
   {
     isLiked: false,
     _id: '5d1f0611d321eb4bdcd707dd',
@@ -24,10 +26,17 @@ const cards = [
     owner: '5d1f0611d321eb4bdcd707dd',
     createdAt: '2019-07-05T08:11:58.324Z'
   }
-]
+] */
 
 export default function Main() {
-  const [popup, setPopup] = useState(null)
+  const [popup, setPopup] = useState(null);
+  const [cards, setCards] = useState([]);
+
+ useEffect(() => {
+  api.getInitialCards().then((data) => {
+    setCards(data);
+  });
+ }, []);
 
   const newCardPopup = { title: 'Novo local', children: <NewCard /> }
   const editAvatarPopup = {
@@ -42,6 +51,7 @@ export default function Main() {
   function handleClosePopup() {
     setPopup(null)
   }
+
 
   return (
     <main className="content">

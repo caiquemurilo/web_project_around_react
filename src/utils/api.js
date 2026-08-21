@@ -1,4 +1,4 @@
-export default class Api {
+ class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl
     this._headers = headers
@@ -76,3 +76,13 @@ export default class Api {
     return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
   }
 }
+
+const api = new Api({
+  baseUrl: 'https://around-api.pt-br.tripleten-services.com/v1',
+  headers: {
+    authorization: 'bc827ff1-488a-414b-a998-e3daaf72ac0b',
+    'Content-Type': 'application/json'
+  }
+})
+
+export { api }
