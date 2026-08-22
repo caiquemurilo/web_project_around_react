@@ -72,6 +72,14 @@
     }).then(this._checkResponse)
   }
 
+  changeLikeCardStatus(cardId, isLiked) {
+    if (isLiked) {
+      return this.addLike({ _id: cardId });
+    } else {
+      return this.removeLike({ _id: cardId });
+    }
+  }
+
   _checkResponse(res) {
     return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
   }

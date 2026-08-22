@@ -19,6 +19,14 @@ export default function Main() {
   });
  }, []);
 
+async function handleCardLike(card) {
+  const isLiked = card.isLiked;
+      await api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+        setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
+    }).catch((error) => console.error(error));
+}
+  
+
   const newCardPopup = { title: 'Novo local', children: <NewCard /> }
   const editAvatarPopup = {
     title: 'Alterar a foto do perfil',
@@ -79,6 +87,7 @@ export default function Main() {
               key={card._id}
               card={card}
               handleOpenImagePopup={handleOpenPopup}
+              onCardLike={handleCardLike}
             />
           ))}
         </ul>
