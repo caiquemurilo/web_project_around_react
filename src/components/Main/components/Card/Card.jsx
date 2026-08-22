@@ -9,6 +9,9 @@ export default function Card(props) {
   const handleLikeClick = () => {
     props.onCardLike(props.card)
   }
+  const handleDeleteClick = () => {
+    props.onCardDelete(props.card)
+  }
   return (
     <li className="card">
       <img
@@ -23,6 +26,7 @@ export default function Card(props) {
         aria-label="Excluir cartão"
         className="card__delete-button"
         type="button"
+        onClick={handleDeleteClick}
       ></button>
       <div className="card__description">
         <h2 className="card__title">{name}</h2>
