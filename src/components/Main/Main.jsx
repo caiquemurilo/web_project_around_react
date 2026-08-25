@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from 'react'
-import avatar from '../../images/avatar.jpg'
 import editIcon from '../../images/edit-icon.svg'
 import Card from '../Main/components/Card/Card'
 import Popup from '../Main/components/Popup/Popup'
@@ -7,7 +6,7 @@ import NewCard from '../Main/components/Popup/components/NewCard/NewCard'
 import EditAvatar from '../Main/components/Popup/components/EditAvatar/EditAvatar'
 import EditProfile from '../Main/components/Popup/components/EditProfile/EditProfile'
 import {api} from '../../utils/api'
-import { CurrentUserContext } from '../../contexts/CurrentUserContext'
+import  CurrentUserContext  from '../../contexts/CurrentUserContext'
 
 export default function Main() {
   const [popup, setPopup] = useState(null);
@@ -46,7 +45,7 @@ async function handleCardDelete(card) {
     setPopup(null)
   }
 
-  const currentUser = useContext(CurrentUserContext)
+  const { currentUser } = useContext(CurrentUserContext)
 
   return (
     <main className="content">
