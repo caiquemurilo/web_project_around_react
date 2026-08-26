@@ -5,33 +5,13 @@ import Popup from '../Main/components/Popup/Popup'
 import NewCard from '../Main/components/Popup/components/NewCard/NewCard'
 import EditAvatar from '../Main/components/Popup/components/EditAvatar/EditAvatar'
 import EditProfile from '../Main/components/Popup/components/EditProfile/EditProfile'
-import {api} from '../../utils/api'
 import  CurrentUserContext  from '../../contexts/CurrentUserContext'
 
 export default function Main(props) {
- 
-  const [cards, setCards] = useState([]);
 
- useEffect(() => {
-  api.getInitialCards().then((data) => {
-    setCards(data);
-  });
- }, []);
+  const { cards, onCardLike, onCardDelete, onAddPlaceSubmit, onOpenPopup, onClosePopup, popup } = props
 
-async function handleCardLike(card) {
-  const isLiked = card.isLiked;
-      await api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-        setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
-    }).catch((error) => console.error(error));
-}
-
-async function handleCardDelete(card) {
-  await api.deleteCard(card).then(() => {
-    setCards((state) => state.filter((currentCard) => currentCard._id !== card._id));
-  }).catch((error) => console.error(error));
-}
-
-  const newCardPopup = { title: 'Novo local', children: <NewCard /> }
+  const newCardPopup = { title: 'Novo local', children: <NewCard onAddPlaceSubmit={onAddPlaceSubmit} /> }
   const editAvatarPopup = {
     title: 'Alterar a foto do perfil',
     children: <EditAvatar />
@@ -53,7 +33,7 @@ async function handleCardDelete(card) {
               alt="Edit Icon"
               className="profile__overlay-icon"
               onClick={() => {
-                props.onOpenPopup(editAvatarPopup)
+                onOpenPopup(editAvatarPopup)
               }}
             />
           </div>
@@ -65,7 +45,7 @@ async function handleCardDelete(card) {
             className="profile__edit-button"
             type="button"
             onClick={() => {
-              props.onOpenPopup(editProfilePopup)
+              onOpenPopup(editProfilePopup)
             }}
           ></button>
           <p className="profile__description">{currentUser.about}</p>
@@ -75,7 +55,7 @@ async function handleCardDelete(card) {
           className="profile__add-button"
           type="button"
           onClick={() => {
-            props.onOpenPopup(newCardPopup)
+            onOpenPopup(newCardPopup)
           }}
         ></button>
       </section>
@@ -85,16 +65,16 @@ async function handleCardDelete(card) {
             <Card
               key={card._id}
               card={card}
-              handleOpenImagePopup={props.onOpenPopup}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              handleOpenImagePopup={onOpenPopup}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           ))}
         </ul>
       </section>
-      {props.popup && (
-        <Popup onClose={props.onClosePopup} title={props.popup.title}>
-          {props.popup.children}
+      {popup && (
+        <Popup onClose={onClosePopup} title={popup.title}>
+          {popup.children}
         </Popup>
       )}
     </main>
