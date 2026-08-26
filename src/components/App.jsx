@@ -29,15 +29,26 @@ function App() {
   };
   
 
-function handleOpenPopup(popup) {
+  function handleOpenPopup(popup) {
     setPopup(popup)
   }
   function handleClosePopup() {
     setPopup(null)
   }
+
+  function handleUpdateAvatar(data) {
+    (async () => {
+      await api.setUserAvatar(data).then((newData) => {
+        setCurrentUser(newData);
+        handleClosePopup()
+      })
+      .catch((error) => console.error(error));
+    })();
+  }
+
   return (
 
-      <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser }}>
+      <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}>
         <div className="page__content">
         <Header />
         <Main popup={popup} onOpenPopup={handleOpenPopup} onClosePopup={handleClosePopup} />
