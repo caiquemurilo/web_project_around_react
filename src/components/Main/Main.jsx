@@ -8,8 +8,8 @@ import EditProfile from '../Main/components/Popup/components/EditProfile/EditPro
 import {api} from '../../utils/api'
 import  CurrentUserContext  from '../../contexts/CurrentUserContext'
 
-export default function Main() {
-  const [popup, setPopup] = useState(null);
+export default function Main(props) {
+ 
   const [cards, setCards] = useState([]);
 
  useEffect(() => {
@@ -38,12 +38,7 @@ async function handleCardDelete(card) {
   }
   const editProfilePopup = { title: 'Editar Perfil', children: <EditProfile /> }
 
-  function handleOpenPopup(popup) {
-    setPopup(popup)
-  }
-  function handleClosePopup() {
-    setPopup(null)
-  }
+  
 
   const { currentUser } = useContext(CurrentUserContext)
 
@@ -58,7 +53,7 @@ async function handleCardDelete(card) {
               alt="Edit Icon"
               className="profile__overlay-icon"
               onClick={() => {
-                handleOpenPopup(editAvatarPopup)
+                props.onOpenPopup(editAvatarPopup)
               }}
             />
           </div>
@@ -70,7 +65,7 @@ async function handleCardDelete(card) {
             className="profile__edit-button"
             type="button"
             onClick={() => {
-              handleOpenPopup(editProfilePopup)
+              props.onOpenPopup(editProfilePopup)
             }}
           ></button>
           <p className="profile__description">{currentUser.about}</p>
@@ -80,7 +75,7 @@ async function handleCardDelete(card) {
           className="profile__add-button"
           type="button"
           onClick={() => {
-            handleOpenPopup(newCardPopup)
+            props.onOpenPopup(newCardPopup)
           }}
         ></button>
       </section>
@@ -90,16 +85,16 @@ async function handleCardDelete(card) {
             <Card
               key={card._id}
               card={card}
-              handleOpenImagePopup={handleOpenPopup}
+              handleOpenImagePopup={props.onOpenPopup}
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
             />
           ))}
         </ul>
       </section>
-      {popup && (
-        <Popup onClose={handleClosePopup} title={popup.title}>
-          {popup.children}
+      {props.popup && (
+        <Popup onClose={props.onClosePopup} title={props.popup.title}>
+          {props.popup.children}
         </Popup>
       )}
     </main>
