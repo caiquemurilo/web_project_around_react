@@ -1,6 +1,4 @@
 import ImagePopup from '../Popup/components/ImagePopup/ImagePopup'
-import { useContext } from 'react'
-import CurrentUserContext from '../../../../contexts/CurrentUserContext'
 
 export default function Card(props) {
   const { handleOpenImagePopup } = props
@@ -16,7 +14,6 @@ export default function Card(props) {
     props.onCardDelete(props.card)
   }
 
-   const { currentUser } = useContext(CurrentUserContext)
   return (
     <li className="card">
       <img
